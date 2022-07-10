@@ -1,0 +1,98 @@
+
+#navigator-toolbox{
+  position: fixed !important;
+  display: block;
+  background-color: var(--lwt-frame,black) !important;
+  transition: 200ms margin-bottom linear !important;
+  transition-delay: 0 !important;
+  margin-top: -32px;
+  line-height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+#navigator-toolbox:not(:focus-within){
+}
+
+
+#mainPopupSet:hover ~ box > toolbox,
+/* Uncomment the above line to make toolbar visible if some popup is hovered */
+/*#navigator-toolbox:focus-within,*/
+#navigator-toolbox:hover:not(:focus-within)
+{
+  transition: 200ms margin-top linear !important;
+  margin-top: 0;
+  opacity: 1;
+}
+
+#navigator-toolbox > *{ line-height: normal; pointer-events: auto }
+
+#navigator-toolbox,
+#navigator-toolbox > *{
+  width: 100vw;
+  -moz-appearance: none !important;
+}
+
+/* These two exist for oneliner compatibility */
+#nav-bar{ width: var(--uc-navigationbar-width,100vw) }
+#TabsToolbar{ width: calc(100vw - var(--uc-navigationbar-width,0px)) }
+
+/* Don't apply transform before window has been fully created */
+:root:not([sessionrestored]) #navigator-toolbox{ transform:none !important }
+
+:root[customizing] #navigator-toolbox{
+  position: relative !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+#navigator-toolbox[inFullscreen] > #PersonalToolbar,
+#PersonalToolbar[collapsed="true"]{ display: none }
+
+
+:root[tabsintitlebar]{ --uc-toolbar-height: 40px; }
+:root[tabsintitlebar][uidensity="compact"]{ --uc-toolbar-height: 32px }
+
+:root[sizemode="fullscreen"] #TabsToolbar > :is(#window-controls,.titlebar-buttonbox-container){
+  visibility: visible !important;
+  z-index: 2;
+}
+
+:root:not([inFullscreen]) #nav-bar{
+  margin-top: calc(0px - var(--uc-toolbar-height,0px));
+}
+
+:root[tabsintitlebar] #toolbar-menubar[autohide="true"]{
+  min-height: unset !important;
+  height: var(--uc-toolbar-height,0px) !important;
+  position: relative;
+}
+
+#toolbar-menubar[autohide="false"]{
+  margin-bottom: var(--uc-toolbar-height,0px)
+}
+
+:root[tabsintitlebar] #toolbar-menubar[autohide="true"] #main-menubar{
+  -moz-box-flex: 1;
+  -moz-box-align: stretch;
+  background-color: var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor);
+  background-clip: padding-box;
+  border-right: 30px solid transparent;
+  border-image: linear-gradient(to left, transparent, var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor) 30px) 20 / 30px
+}
+
+#toolbar-menubar:not([inactive]){ z-index: 2 }
+#toolbar-menubar[autohide="true"][inactive] > #menubar-items {
+  opacity: 0;
+  pointer-events: none;
+  margin-left: var(--uc-window-drag-space-pre,0px)
+}
+/* Uncomment this if tabs toolbar is hidden with hide_tabs_toolbar.css */
+ /*#titlebar{ margin-bottom: -9px }*/
+
+/* Uncomment the following for compatibility with tabs_on_bottom.css - this isn't well tested though */
+/*
+:root{ --uc-titlebar-padding: 0px !important; }
+#navigator-toolbox{ flex-direction: column; display: flex; }
+#titlebar{ order: 2 }
+*/
+
